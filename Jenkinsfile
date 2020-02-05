@@ -1,23 +1,24 @@
 pipeline { 
     agent any 
-    options {
-        skipStagesAfterUnstable()
+    tools {
+        maven "Maven360"
+        jdk "jdk8"
     }
     stages {
         stage('Build') { 
             steps { 
-                sh 'make' 
+                echo 'Building Phase ...' 
+                sh "mvn package"
             }
         }
         stage('Test'){
             steps {
-                sh 'make check'
-                junit 'reports/**/*.xml' 
+                echo "Test Phase .."           
             }
         }
         stage('Deploy') {
             steps {
-                sh 'make publish'
+                echo "Building Phase ....."
             }
         }
     }
